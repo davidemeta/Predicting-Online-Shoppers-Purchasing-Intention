@@ -1,0 +1,29 @@
+\section{Discussion and Conclusions}
+
+\subsection{Discussion}
+
+The experimental results demonstrate that the \textbf{Random Forest} outperforms both alternative architectures across all primary metrics. The key findings of this comparative study can be summarised as follows:
+
+\begin{itemize}
+    \item \textbf{Ensemble superiority}: The Random Forest achieved the best overall performance (ROC-AUC = 0.922, F1-Score = 0.663). This confirms that ensemble tree-based methods remain highly effective and are often the state-of-the-art choice for structured, tabular datasets~\cite{grinsztajn2022}.
+    
+    \item \textbf{Sensitivity of Deep Learning}: The ANN demonstrated the highest sensitivity, yielding the highest recall (0.741). This indicates its superior ability to capture the largest share of actual purchasers, but at the cost of lower precision (0.517). From a business perspective, this trade-off is highly valuable in scenarios where the opportunity cost of missing a potential buyer significantly outweighs the cost of a false positive (e.g., sending an unnecessary discount code).
+    
+    \item \textbf{Baseline competitiveness}: The Logistic Regression model proved remarkably competitive, achieving a ROC-AUC of 0.880 and an F1-Score of 0.608, which is only fractionally below the ANN's performance (0.609). This proximity suggests that the underlying decision boundary separating purchasers from non-purchasers is largely linear.
+    
+    \item \textbf{Impact of data balancing}: The rigorous management of class imbalance proved essential to the study's success. The application of SMOTE exclusively to the training set, coupled with class-weighted loss functions, empowered all models to achieve a meaningful minority-class recall despite the low 15.5\% baseline prevalence.
+\end{itemize}
+
+Furthermore, the SHAP analysis confirmed \textbf{PageValues} as the overwhelmingly dominant predictor. This provides a highly actionable business insight: improving page content to enhance perceived value, alongside reducing friction that leads to high bounce rates, represent the most effective strategic levers for conversion optimisation.
+
+\subsection{Limitations}
+
+While the study provides robust insights, certain limitations must be acknowledged. First, no systematic hyperparameter optimisation was performed, meaning the models' performances might not reflect their absolute theoretical maximum. Second, the implemented ANN architecture (128 $\rightarrow$ 64) is relatively shallow. Finally, the dataset originates from a single, anonymous e-commerce platform over a specific timeframe, implying that the identified behavioural patterns may not seamlessly generalise to different retail domains or contemporary browsing habits.
+
+\subsection{Conclusions}
+
+This study compared three distinct machine learning paradigms to predict e-commerce purchase intentions on a highly imbalanced dataset. While the Random Forest achieved the highest predictive performance and offered excellent SHAP-based interpretability, the comparative analysis revealed a crucial insight regarding model complexity.
+
+The highly competitive performance of the Logistic Regression baseline (F1 = 0.608) compared to the Artificial Neural Network (F1 = 0.609) clearly illustrates the principle of \textbf{Occam's Razor}. Given that the simple linear model performs almost identically to the deep learning architecture, it is evident that much of the predictive signal in this dataset is linearly separable. Consequently, deploying a computationally expensive, "black-box" ANN provides negligible business value in this specific context.
+
+Ultimately, the choice of the optimal model depends on the specific business objective. If the goal is to maximise overall accuracy and extract complex feature insights, the Random Forest is the superior choice. If the priority is to strictly minimise missed conversions, a high-recall setup is preferable. However, if computational efficiency, deployment speed, and strict interpretability are paramount, the Logistic Regression remains an exceptionally robust and pragmatic solution.

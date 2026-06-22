@@ -1,0 +1,22 @@
+\section{Experimental Setup}
+
+\subsection{Split Strategy}
+
+To ensure a robust evaluation and prevent performance estimation bias, the dataset was divided using a \textbf{stratified 80/20 partition}. This approach meticulously preserved the original class ratio across both subsets:
+
+\begin{itemize}
+    \item \textbf{Training Set (80\%)}: comprising 9,864 samples used for model training. To address the inherent class imbalance discussed previously, this set was subsequently expanded to 16,676 samples via SMOTE oversampling.
+    \item \textbf{Test Set (20\%)}: consisting of 2,466 samples that were kept strictly isolated until the final evaluation phase.
+\end{itemize}
+
+Furthermore, when training the Artificial Neural Network (ANN), an additional 15\% validation split was extracted dynamically from the training data. This allowed for real-time monitoring of the validation loss, enabling early stopping to prevent overfitting during the training loop.
+
+\subsection{Preprocessing Pipeline}
+
+A rigorous preprocessing pipeline was established to prepare the raw data for modeling while strictly preventing \textit{data leakage} at every stage. The sequential steps were executed as follows:
+
+\begin{enumerate}
+    \item \textbf{Feature Encoding}: categorical variables were systematically transformed into numerical representations. Specifically, the \texttt{Month} feature was ordinal-encoded to reflect its natural temporal progression (e.g., Jan=1 \dots Dec=12), \texttt{VisitorType} was label-encoded, and boolean attributes were directly cast to integers.
+    \item \textbf{Feature Scaling}: to ensure all variables contributed equally to the learning process, numerical features were standardized. A \texttt{StandardScaler} was fitted exclusively on the training set to compute the mean and variance, and only then applied to transform both the training and test sets.
+    \item \textbf{SMOTE Oversampling}~\cite{chawla2002}: the \textit{Synthetic Minority Over-sampling Technique} was applied solely to the training data. This procedure synthesized new examples for the minority class, effectively balancing the training distribution from 8,338 non-purchases and 1,526 purchases to a symmetric 8,338 to 8,338 ratio. The test set was intentionally left untouched to ensure the final evaluation reflected the true, highly imbalanced operational environment.
+\end{enumerate}

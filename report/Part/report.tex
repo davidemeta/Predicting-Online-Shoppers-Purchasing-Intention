@@ -1,0 +1,68 @@
+% ============================================================================
+%  E-Commerce Purchase Intention Prediction — Project Report
+%  Intelligenza Artificiale e Apprendimento Automatico
+%  Università degli Studi di Firenze — A.A. 2024/2025
+% ============================================================================
+
+\documentclass{article}
+
+% ── Packages ────────────────────────────────────────────────────────────────
+\usepackage[utf8]{inputenc}
+\usepackage[a4paper,left=3.5cm,right=3.5cm,top=2cm,bottom=2cm]{geometry}
+\usepackage{crop,graphicx,amsmath,array,amssymb,fancyhdr,lineno}
+\usepackage{flushend,stfloats,amsthm,chngpage,times,lipsum,lastpage}
+\usepackage{calc,listings,wrapfig,tabularx,longtable,enumitem}
+\usepackage{multirow}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{hyperref}
+\usepackage{booktabs}
+\usepackage{xcolor}
+\usepackage{tcolorbox}
+\definecolor{shadecolor}{rgb}{0.86,0.86,0.86}
+\usepackage{float}
+\usepackage{csquotes}
+\usepackage[english]{babel}
+
+\graphicspath{{../Resources/}}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue!60!black,
+    citecolor=blue!60!black,
+    urlcolor=blue!60!black,
+}
+
+% ── Header e Footer ────────────────────────────────────────────────────────
+\pagestyle{fancy}
+\fancypagestyle{plain}{%
+  \renewcommand{\headrulewidth}{0pt}%
+  \fancyhf{}%
+}
+
+\title{E-Commerce Purchase Intention Prediction}
+\author{Davide Meta}
+
+% ============================================================================
+\begin{document}
+\include{Title}
+
+\fancyhf{}
+\fancyhead[L]{Davide Meta}
+\fancyhead[R]{Intelligenza Artificiale e Apprendimento Automatico}
+\fancyfoot[R]{ \large \bf \thepage\ \centering}%
+
+\newpage
+\tableofcontents
+\listoffigures
+\listoftables
+
+\newpage
+\input{Introduzione}
+\input{Descrizione degli esperimenti}
+\newpage
+\input{Risultati}
+\input{Discussione e Conclusioni}
+\input{Bibliografia}
+
+\end{document}

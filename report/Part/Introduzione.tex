@@ -1,0 +1,41 @@
+\section{Introduction}
+
+\subsection{Problem Description}
+
+Predicting whether a browsing session on an e-commerce platform will result in a purchase is a highly relevant task for both industry and academia. This work frames the problem as a \textbf{binary classification} task. Given a set of session-level features, the primary goal is to determine whether the user journey ends with a successful transaction (\texttt{Revenue = True}) or an abandonment (\texttt{Revenue = False}). To provide a comprehensive analysis, three distinct learning paradigms are compared:
+
+\begin{itemize}
+    \item \textbf{Logistic Regression}: a classic linear model that serves as a highly interpretable baseline.
+    \item \textbf{Artificial Neural Networks (ANNs)}: a feedforward architecture capable of capturing complex, non-linear feature interactions.
+    \item \textbf{Random Forests}: an ensemble approach consisting of 500 decision trees, enhanced by SHAP-based interpretability.
+\end{itemize}
+
+\subsection{Theoretical Background and Metrics}
+
+When dealing with imbalanced classification, relying solely on global accuracy can be highly misleading. A naive baseline simply predicting the majority class would achieve approximately 84.5\% accuracy without learning any underlying pattern. To ensure a robust and fair assessment, the evaluation framework includes:
+
+\begin{itemize}
+    \item \textbf{ROC-AUC}: which measures the discriminative ability of the models across all possible classification thresholds.
+    \item \textbf{Precision}: the ratio of correctly predicted purchases to all predicted purchases. It evaluates the model's ability to minimize \textit{false positives} (e.g., predicting a purchase when the user actually abandons the cart).
+    \item \textbf{Recall (Sensitivity)}: the ratio of correctly predicted purchases to all actual purchases. It evaluates the model's ability to minimize \textit{false negatives} (e.g., failing to identify a user who is going to buy).
+    \item \textbf{F1-Score}: the harmonic mean of Precision and Recall. It provides a single, balanced metric that is particularly useful for highly imbalanced datasets where accuracy is misleading.
+    \item \textbf{Confusion Matrix}: providing a detailed visual breakdown of prediction errors.
+    \item \textbf{SHAP values}~\cite{lundberg2017}: an advanced interpretability method used to quantify the exact contribution of each feature to the model's predictions. It is preferred over traditional Gini-based importance because it consistently shows both the magnitude and the direction of a feature's impact on the final output.
+\end{itemize}
+
+From a theoretical standpoint, \textbf{Logistic Regression} models the log-odds of the positive class as a linear combination of features. Moving beyond linear boundaries, \textbf{ANNs}~\cite{goodfellow2016} approximate arbitrary functions through successive compositions of affine transformations and non-linear activations. In this study, the \textbf{ReLU} function ($\max(0, x)$) is employed in the hidden layers to explicitly mitigate the vanishing gradient problem often caused by standard sigmoid activations. Finally, \textbf{Random Forests}~\cite{breiman2001} leverage bootstrap aggregation to combine predictions from multiple decorrelated decision trees, naturally handling non-linearities while resisting overfitting.
+
+\subsection{Exploratory Data Analysis}
+
+The \textit{Online Shoppers Purchasing Intention Dataset}~\cite{sakar2019} from the UCI Machine Learning Repository contains \textbf{12,330 sessions} described by \textbf{18 features}. These comprise 10 numerical variables (such as page-visit counts, durations, bounce and exit rates, alongside page values) and 8 categorical attributes (including month, OS, browser, region, traffic type, visitor type, and weekend status). The Exploratory Data Analysis %(notebook \texttt{01\_eda.ipynb})
+highlighted the following main insights:
+
+\begin{itemize}
+    \item A \textbf{severe class imbalance}, with 84.5\% non-purchasing sessions versus 15.5\% purchasing sessions (representing a ratio of approximately $5.5:1$).
+    \item An excellent data quality, with \textbf{no missing values} across all the 12,330 recorded sessions.
+    \item \textbf{PageValues} (a Google Analytics metric representing the average value of a web page visited before a transaction) emerged as the strongest single discriminator for positive purchase behaviour.
+    \item \textbf{BounceRates} and \textbf{ExitRates} showed a strong negative correlation with successful transactions.
+    \item \textbf{ProductRelated} pages accounted for the vast majority of the total session time.
+\end{itemize}
+
+\noindent The full source code, notebooks, and preprocessed data are publicly available on \href{https://github.com/davidemeta/Predicting-Online-Shoppers-Purchasing-Intention}{GitHub}.

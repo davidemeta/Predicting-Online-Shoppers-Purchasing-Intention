@@ -1,0 +1,78 @@
+\section{Results}
+
+\subsection{Training}
+
+The learning dynamics of the Artificial Neural Network are illustrated in Figure~\ref{fig:ann_history}, which displays the training history across epochs. Both the training and validation loss exhibit a steady convergence, eventually triggering the EarlyStopping mechanism at epoch 85. The close alignment of these two curves confirms that the model achieved good generalisation, successfully avoiding significant overfitting on the training data.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{ann_training_history.pdf}
+    \caption{ANN training history: loss (left) and accuracy (right).}
+    \label{fig:ann_history}
+\end{figure}
+
+\subsection{Comparative Results}
+
+Table~\ref{tab:results} presents a comprehensive summary of the models' performance on the isolated test set. Since predicting the actual transaction is the primary objective of this study, metrics such as Precision, Recall, and the F1-Score are reported specifically for the positive class (purchase).
+
+\begin{table}[H]
+\centering
+\caption{Test-set performance comparison. Best values per metric in \textbf{bold}.}
+\label{tab:results}
+\begin{tabular}{@{}lccccc@{}}
+\toprule
+\textbf{Model} & \textbf{Accuracy} & \textbf{Precision} & \textbf{Recall} & \textbf{F1-Score} & \textbf{ROC-AUC} \\ \midrule
+Logistic Regression & 0.8593 & 0.5348 & 0.7042 & 0.6079 & 0.8801 \\
+ANN                 & 0.8528 & 0.5174 & \textbf{0.7408} & 0.6093 & 0.8946 \\
+Random Forest       & \textbf{0.8897} & \textbf{0.6297} & 0.6990 & \textbf{0.6625} & \textbf{0.9217} \\ \bottomrule
+\end{tabular}
+\end{table}
+
+These quantitative results are further supported by the comparative ROC curves (Figure~\ref{fig:roc_comp}). The Random Forest model clearly dominates the upper-left region across virtually all classification thresholds, achieving the highest overall ROC-AUC. It is followed by the ANN and the Logistic Regression baseline. 
+
+Furthermore, an analysis of the confusion matrices (Figure~\ref{fig:cm_comp}) reveals distinct behavioural differences among the models. While the Random Forest excels in precision by producing the fewest false positives, the ANN proves to be more sensitive, yielding the fewest false negatives.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.65\textwidth]{comparative_roc.pdf}
+    \caption{Comparative ROC curves.}
+    \label{fig:roc_comp}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{comparative_confusion_matrices.pdf}
+    \caption{Confusion matrices for all three models on the test set (2,466 samples).}
+    \label{fig:cm_comp}
+\end{figure}
+
+\subsection{Feature Importance via SHAP}
+
+To unpack the decision-making process of the best-performing model, a SHAP (\textit{SHapley Additive exPlanations}) analysis was conducted on the Random Forest. As shown in Figure~\ref{fig:shap}, this method provides highly interpretable feature attributions, detailing both the magnitude and the direction of each variable's effect, a significant advantage over traditional Gini-based importance, which only reports absolute magnitude.
+
+To properly interpret the SHAP beeswarm plot (Figure~\ref{fig:shap}a), three visual elements must be considered: the horizontal axis indicates the impact on the model's output (where positive SHAP values increase the likelihood of a purchase); the colour gradient represents the actual value of the feature for that specific session (red for high values, blue for low values); and the vertical thickness illustrates the density of data points sharing similar effects. 
+
+Applying this reading key, the analysis highlights the following dynamics:
+
+\begin{itemize}
+    \item \textbf{PageValues} overwhelmingly acts as the dominant predictor; high values of this feature (red dots) consistently align on the positive side of the SHAP axis, strongly pushing the prediction towards a successful purchase.
+    \item \textbf{Month} and \textbf{Administrative\_Duration} emerge as the second and third most influential features, indicating that the time of the year and the time spent on administrative pages hold a predictive power for this specific dataset.
+    \item Conversely, high \textbf{ExitRates} and \textbf{BounceRates} act as strong negative signals. For these features, high values (red dots) are heavily concentrated on the negative side of the axis, driving the predictions towards the negative class (cart abandonment).
+\end{itemize}
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[t]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{shap_beeswarm.pdf}
+        \caption{Beeswarm: feature effect distributions.}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{shap_bar.pdf}
+        \caption{Bar plot: mean $|\text{SHAP}|$ feature ranking.}
+    \end{subfigure}
+    \caption{SHAP analysis of the Random Forest model on the test set.}
+    \label{fig:shap}
+\end{figure}
