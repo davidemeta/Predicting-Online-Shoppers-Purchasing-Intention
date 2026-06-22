@@ -8,6 +8,17 @@ Comparative study of **Logistic Regression**, **Artificial Neural Network (ANN)*
 **Course:** Intelligenza Artificiale e Apprendimento Automatico — Prof. Federico Pernici \
 **University:** Università degli Studi di Firenze — Dipartimento di Ingegneria dell'Informazione
 
+### Open in Colab
+
+| Notebook | Colab |
+|----------|-------|
+| 01 — Exploratory Data Analysis | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/davidemeta/Predicting-Online-Shoppers-Purchasing-Intention/blob/main/notebooks/01_eda.ipynb) |
+| 02 — Preprocessing | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/davidemeta/Predicting-Online-Shoppers-Purchasing-Intention/blob/main/notebooks/02_preprocessing.ipynb) |
+| 03 — Logistic Regression | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/davidemeta/Predicting-Online-Shoppers-Purchasing-Intention/blob/main/notebooks/03_logistic_regression.ipynb) |
+| 04 — ANN | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/davidemeta/Predicting-Online-Shoppers-Purchasing-Intention/blob/main/notebooks/04_ann.ipynb) |
+| 05 — Random Forest | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/davidemeta/Predicting-Online-Shoppers-Purchasing-Intention/blob/main/notebooks/05_random_forest.ipynb) |
+| 06 — Evaluation & Comparison | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/davidemeta/Predicting-Online-Shoppers-Purchasing-Intention/blob/main/notebooks/06_evaluation_comparison.ipynb) |
+
 ---
 
 ## Table of Contents
